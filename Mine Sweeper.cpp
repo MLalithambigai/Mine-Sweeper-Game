@@ -79,7 +79,7 @@ void MinesweeperGame::displayFieldMine()
         {
             if(mines[i][j]==true)
             {
-                cout << "M" << " ";
+                cout << "*" << " ";
             }
             else
             {
