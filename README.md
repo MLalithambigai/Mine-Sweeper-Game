@@ -1,4 +1,4 @@
-# Mine-Sweeper-Game-c-
+# Mine-Sweeper-Game
 First, player should select the size of the mine field. Then the field is displayed to the player, where all the locations are coveredandindicated with a ‘c’. The mines should be buried at randomlocations of theselected field. Then user can enter three letters in <row letter><column letter><command>. Row letter - This is from A, B, and etc
 Column letter - This is also from A, B, and etc. Command - F - place a flag on the location
 R - reveal the uncovered location
