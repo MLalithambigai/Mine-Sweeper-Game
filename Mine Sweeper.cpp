@@ -180,17 +180,129 @@ bool MinesweeperGame::winOrNot()
     return true;
 }
 
-
 int MinesweeperGame::adjacentMinesFind(int row, int col)
 {
-    return 0;
+    int count = 0;
+    for (int i = -1; i <= 1; ++i)
+    {
+        for (int j = -1; j <= 1; ++j)
+        {
+            int newRow = row + i;
+            int newCol = col + j;
+            if (newRow >= 0 && newRow < field_grid_size && newCol >= 0 && newCol < field_grid_size)
+            {
+                if (mines[newRow][newCol])
+                {
+                    ++count;
+                }
+            }
+        }
+    }
+    return count;
 }
 
-// Main function to start and manage the game
+// 21_ENG_138 - T. F. Nusha
 void MinesweeperGame::playGame()
-{}
+{
+    setMines(); // Place mines on the grid
 
+    while (true)
+    {
+        displayGameField();
+        string moveToLocationInput;
+        cout << "Enter move (e.g., ABF for flag, ABR for reveal): ";
+        cin >> moveToLocationInput;
+        string moveToLocation;
+        moveToLocation=moveToLocationInput;
+        moveToLocation[0]=toupper(moveToLocationInput[0]);// Convert inputs to uppercase
+        moveToLocation[1]=toupper(moveToLocationInput[1]);
+        moveToLocation[2]=toupper(moveToLocationInput[2]);
+        if (moveToLocation.size() != 3)
+        {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        int row = moveToLocation[0] - 'A'; // Convert letter to grid row index
+        int col = moveToLocation[1] - 'A'; // Convert letter to grid column index
+
+        if (row < 0 || row >= field_grid_size || col < 0 || col >= field_grid_size)
+        {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        char action = moveToLocation[2];
+
+       if (action == 'F' || action == 'f' )
+        {
+            flagPlacing(row, col); // Place a flag
+        }
+        else if (action == 'R' || action == 'r')
+        {
+            revealingCell(row, col); // Reveal a cell
+        }
+        else
+        {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        if (winOrNot())
+        {
+            cout << "Congratulations! You won!" << endl;
+            break;
+        }
+    }
+}
+
+// 21_ENG_138 - T. F. Nusha
 int main()
 {
+    string fieldOption;
+    cout<<"\t(:  Mine sweeper game  :)"<<endl<<endl;
+    cout<<"Field option   size      No.Of Mines(=No.of flags)"<<endl;
+    cout<<"   1          10 x 10         12"<<endl;
+    cout<<"   2          15 x 15         18"<<endl;
+    cout<<"   3          20 x 20         24"<<endl;
+    cout<<"\n Select a field option from above: ";
+    cin>> fieldOption;
+    while(fieldOption!="1" && fieldOption!="2" && fieldOption!="3")
+    {
+        cout<<"Invalid input. Enter a correct field option(1 or 2 or 3) : ";
+        cin>>fieldOption;
+    }
+    cout<<endl;
+    if(fieldOption=="1")
+    {
+        MinesweeperGame game(10, 12);
+        game.playGame();
+    }
+    else if(fieldOption=="2")
+    {
+        MinesweeperGame game(15, 18);
+        game.playGame();
+
+    }
+    else if(fieldOption=="3")
+    {
+        MinesweeperGame game(20, 24);
+        game.playGame();
+
+    } if (fieldOption == "1")
+    {
+        MinesweeperGame game(10, 12); // Create game with 10x10 grid and 12 mines
+        game.playGame();
+    }
+    else if (fieldOption == "2")
+    {
+        MinesweeperGame game(15, 18); // Create game with 15x15 grid and 18 mines
+        game.playGame();
+    }
+    else if (fieldOption == "3")
+    {
+        MinesweeperGame game(20, 24); // Create game with 20x20 grid and 24 mines
+        game.playGame();
+    }
     return 0;
 }
