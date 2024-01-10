@@ -180,6 +180,7 @@ bool MinesweeperGame::winOrNot()
     return true;
 }
 
+// 21_ENG_116 - R.Abinayan
 int MinesweeperGame::adjacentMinesFind(int row, int col)
 {
     int count = 0;
